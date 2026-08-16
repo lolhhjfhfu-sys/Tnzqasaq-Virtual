@@ -4,935 +4,1822 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TNZQASAQ 1.0 Beta</title>
+<title>TNZQASAQ — 1.0 Beta</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #07030d;
-    color: #fff;
-    overflow-x: hidden;
+body{
+    font-family:Arial, sans-serif;
+    color:white;
+    background:#05030a;
+    overflow-x:hidden;
 }
 
-/* ФОНОВОЕ СВЕЧЕНИЕ */
+/* ===== ФОН ===== */
 
-body::before {
-    content: "";
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    background: #8b2be2;
-    filter: blur(220px);
-    opacity: .18;
-    top: -200px;
-    left: -150px;
-    pointer-events: none;
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-5;
+
+    background:
+    radial-gradient(circle at 20% 20%,#7b2cff22,transparent 30%),
+    radial-gradient(circle at 80% 70%,#c56cff18,transparent 30%),
+    #05030a;
 }
 
-body::after {
-    content: "";
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    background: #c75cff;
-    filter: blur(220px);
-    opacity: .12;
-    right: -180px;
-    bottom: -200px;
-    pointer-events: none;
+/* ===== СВЕТ ===== */
+
+.light{
+    position:fixed;
+    width:400px;
+    height:400px;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.18;
+
+    z-index:-3;
+
+    animation:moveLight 12s infinite alternate ease-in-out;
 }
 
-/* HEADER */
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    padding: 20px 7%;
-
-    background: rgba(7,3,13,.72);
-    backdrop-filter: blur(20px);
-
-    border-bottom: 1px solid rgba(199,125,255,.15);
-
-    z-index: 1000;
+.light.one{
+    background:#8b35ff;
+    left:-200px;
+    top:-150px;
 }
 
-.header {
-    max-width: 1300px;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.light.two{
+    background:#c86cff;
+    right:-200px;
+    top:40%;
+    animation-delay:3s;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 900;
+.light.three{
+    background:#5e1aa5;
+    bottom:-200px;
+    left:40%;
+    animation-delay:6s;
+}
 
-    color: #d48aff;
+@keyframes moveLight{
+
+    0%{
+        transform:translate(0,0) scale(1);
+    }
+
+    50%{
+        transform:translate(100px,-70px) scale(1.25);
+    }
+
+    100%{
+        transform:translate(-70px,80px) scale(.9);
+    }
+
+}
+
+/* ===== ЧАСТИЦЫ ===== */
+
+.particle{
+    position:fixed;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:#d7a0ff;
+
+    opacity:.5;
+
+    z-index:-2;
+
+    animation:particles 12s linear infinite;
+}
+
+.p1{left:10%;animation-duration:9s}
+.p2{left:25%;animation-duration:12s}
+.p3{left:40%;animation-duration:15s}
+.p4{left:55%;animation-duration:10s}
+.p5{left:70%;animation-duration:14s}
+.p6{left:85%;animation-duration:11s}
+
+@keyframes particles{
+
+    from{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.6;
+    }
+
+    80%{
+        opacity:.6;
+    }
+
+    to{
+        transform:translateY(-20vh);
+        opacity:0;
+    }
+
+}
+
+/* ===== HEADER ===== */
+
+header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    padding:16px 6%;
+
+    z-index:1000;
+
+    background:#05030acc;
+
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid #ffffff10;
+
+}
+
+.header{
+
+    max-width:1300px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:900;
+
+    color:#cf8cff;
 
     text-shadow:
-        0 0 10px #9d4edd,
-        0 0 25px #9d4edd;
+    0 0 10px #9b42ff,
+    0 0 35px #9b42ff;
+
+    animation:logoPulse 3s infinite;
+
 }
 
-nav a {
-    color: #aaa;
-    text-decoration: none;
+@keyframes logoPulse{
 
-    margin-left: 28px;
+    50%{
+        text-shadow:
+        0 0 20px #b65cff,
+        0 0 55px #9b42ff;
+    }
 
-    transition: .3s;
 }
 
-nav a:hover {
-    color: #d48aff;
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
 }
 
-/* HERO */
+nav a{
 
-.hero {
-    min-height: 100vh;
+    color:#aaa;
 
-    padding: 150px 7% 80px;
+    text-decoration:none;
 
-    max-width: 1400px;
-    margin: auto;
+    padding:10px 15px;
 
-    display: flex;
+    border-radius:12px;
 
-    align-items: center;
-    justify-content: space-between;
+    transition:.3s;
 
-    gap: 70px;
 }
 
-.hero-text {
-    max-width: 650px;
+nav a:hover{
+
+    color:white;
+
+    background:#a348ff18;
+
+    transform:translateY(-2px);
+
 }
 
-.version {
-    display: inline-block;
+.home{
 
-    padding: 9px 18px;
+    font-size:20px;
 
-    border-radius: 50px;
-
-    border: 1px solid #733a99;
-
-    background: rgba(157,78,221,.08);
-
-    color: #d48aff;
-
-    margin-bottom: 25px;
-
-    box-shadow:
-        0 0 20px rgba(157,78,221,.12);
 }
 
-h1 {
-    font-size: clamp(50px, 7vw, 90px);
+/* ===== HERO ===== */
 
-    line-height: .95;
+.hero{
 
-    margin-bottom: 25px;
+    max-width:1350px;
+
+    min-height:100vh;
+
+    margin:auto;
+
+    padding:150px 7% 80px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:60px;
+
 }
 
-.gradient {
-    background: linear-gradient(
+.heroText{
+
+    max-width:680px;
+
+    animation:heroIn 1s ease;
+
+}
+
+@keyframes heroIn{
+
+    from{
+        opacity:0;
+        transform:translateX(-80px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:9px 18px;
+
+    border-radius:50px;
+
+    border:1px solid #9d4edd66;
+
+    color:#d39aff;
+
+    background:#9d4edd12;
+
+    margin-bottom:25px;
+
+    animation:badgeGlow 3s infinite;
+
+}
+
+@keyframes badgeGlow{
+
+    50%{
+        box-shadow:0 0 30px #9d4edd55;
+    }
+
+}
+
+h1{
+
+    font-size:clamp(50px,7vw,90px);
+
+    line-height:.95;
+
+    margin-bottom:25px;
+
+}
+
+.gradient{
+
+    background:
+    linear-gradient(
         90deg,
-        #8b2be2,
-        #d48aff,
-        #fff
+        #8129df,
+        #e0b4ff,
+        white,
+        #b75cff
     );
 
-    -webkit-background-clip: text;
+    background-size:300%;
 
-    color: transparent;
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:gradient 5s linear infinite;
+
 }
 
-.description {
-    color: #999;
+@keyframes gradient{
 
-    font-size: 18px;
-
-    line-height: 1.7;
-
-    margin-bottom: 35px;
-}
-
-/* BUTTONS */
-
-.buttons {
-    display: flex;
-
-    gap: 15px;
-
-    flex-wrap: wrap;
-}
-
-.btn {
-    display: inline-block;
-
-    padding: 16px 28px;
-
-    border-radius: 13px;
-
-    text-decoration: none;
-
-    font-weight: bold;
-
-    transition: .3s;
-
-    cursor: pointer;
-}
-
-.download-btn {
-    color: #fff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7626c4,
-            #c75cff
-        );
-
-    box-shadow:
-        0 0 30px rgba(157,78,221,.35);
-}
-
-.download-btn:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 0 50px rgba(157,78,221,.7);
-}
-
-.secondary {
-    color: white;
-
-    background: rgba(255,255,255,.04);
-
-    border: 1px solid #382047;
-}
-
-.secondary:hover {
-    background: rgba(157,78,221,.15);
-}
-
-/* ТЕЛЕФОН */
-
-.phone-wrapper {
-    width: 390px;
-
-    display: flex;
-
-    justify-content: center;
-
-    perspective: 1000px;
-}
-
-.phone {
-    width: 265px;
-    height: 535px;
-
-    padding: 10px;
-
-    border-radius: 40px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #383838,
-            #080808
-        );
-
-    border: 2px solid #626262;
-
-    box-shadow:
-        0 0 0 5px #161616,
-        0 0 80px rgba(157,78,221,.45);
-
-    animation:
-        phoneFloat 4s ease-in-out infinite;
-}
-
-@keyframes phoneFloat {
-
-    0%,100% {
-        transform:
-            translateY(0)
-            rotate(3deg);
+    to{
+        background-position:300%;
     }
 
-    50% {
-        transform:
-            translateY(-25px)
-            rotate(-3deg);
-    }
 }
 
-.phone-screen {
-    width: 100%;
-    height: 100%;
+.description{
 
-    border-radius: 32px;
+    color:#999;
 
-    overflow: hidden;
+    font-size:18px;
 
-    position: relative;
+    line-height:1.7;
 
-    display: flex;
+    margin-bottom:30px;
 
-    flex-direction: column;
+}
 
-    justify-content: center;
+.buttons{
 
-    align-items: center;
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+}
+
+.btn{
+
+    padding:16px 25px;
+
+    border-radius:14px;
+
+    border:none;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-5px) scale(1.02);
+
+}
+
+.primary{
 
     background:
-        radial-gradient(
-            circle at center,
-            rgba(178,70,255,.35),
-            transparent 40%
-        ),
-        linear-gradient(
-            145deg,
-            #1b0927,
-            #050208
-        );
+    linear-gradient(
+        135deg,
+        #7522c7,
+        #c25cff
+    );
+
+    box-shadow:
+    0 0 30px #9d4edd55;
+
 }
 
-.phone-screen::before {
-    content: "";
+.secondary{
 
-    position: absolute;
+    background:#ffffff08;
 
-    width: 190px;
-    height: 190px;
+    border:1px solid #ffffff16;
 
-    background: #9d4edd;
-
-    filter: blur(100px);
-
-    opacity: .35;
 }
 
-.camera {
-    position: absolute;
+/* ===== ТЕЛЕФОН ===== */
 
-    top: 12px;
+.phoneArea{
 
-    width: 85px;
-    height: 22px;
+    width:390px;
 
-    border-radius: 20px;
+    display:flex;
 
-    background: #000;
+    justify-content:center;
 
-    z-index: 5;
 }
 
-.phone-logo {
-    position: relative;
+.phone{
 
-    z-index: 2;
+    width:260px;
 
-    font-size: 27px;
+    height:530px;
 
-    font-weight: 900;
+    padding:10px;
 
-    letter-spacing: 1px;
+    border-radius:40px;
 
-    color: #d48aff;
+    background:
+    linear-gradient(
+        145deg,
+        #555,
+        #090909
+    );
+
+    border:2px solid #666;
+
+    box-shadow:
+    0 0 0 5px #151515,
+    0 0 90px #9d4edd66;
+
+    animation:phoneFloat 4s ease-in-out infinite;
+
+}
+
+@keyframes phoneFloat{
+
+    0%,100%{
+        transform:translateY(0) rotate(3deg);
+    }
+
+    50%{
+        transform:translateY(-25px) rotate(-3deg);
+    }
+
+}
+
+.phoneScreen{
+
+    height:100%;
+
+    border-radius:32px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    radial-gradient(
+        circle,
+        #9d4edd66,
+        transparent 45%
+    ),
+    #0d0712;
+
+}
+
+.camera{
+
+    position:absolute;
+
+    top:12px;
+
+    width:80px;
+
+    height:20px;
+
+    background:#000;
+
+    border-radius:20px;
+
+}
+
+.phoneLogo{
+
+    font-size:28px;
+
+    font-weight:900;
+
+    color:#d69aff;
 
     text-shadow:
-        0 0 10px #9d4edd,
-        0 0 30px #9d4edd,
-        0 0 55px #9d4edd;
+    0 0 15px #9d4edd,
+    0 0 40px #9d4edd;
+
 }
 
-.phone-version {
-    position: relative;
+.phoneVersion{
 
-    z-index: 2;
+    margin-top:10px;
 
-    margin-top: 12px;
+    color:#888;
 
-    font-size: 13px;
+    letter-spacing:4px;
 
-    letter-spacing: 4px;
+    font-size:12px;
 
-    color: #aaa;
 }
 
-.phone-status {
-    position: absolute;
+/* ===== СЕКЦИИ ===== */
 
-    bottom: 25px;
+.section{
 
-    color: #555;
+    max-width:1250px;
 
-    font-size: 10px;
+    margin:auto;
 
-    letter-spacing: 2px;
+    padding:100px 7%;
+
 }
 
-/* НИЖНЯЯ ПАНЕЛЬ */
+.title{
 
-.bottom-panel {
-    padding: 80px 7%;
+    text-align:center;
 
-    text-align: center;
+    margin-bottom:45px;
+
 }
 
-.bottom-panel h2 {
-    font-size: 42px;
+.title h2{
 
-    margin-bottom: 12px;
+    font-size:43px;
+
 }
 
-.bottom-panel p {
-    color: #777;
+.title p{
 
-    margin-bottom: 30px;
+    color:#777;
+
+    margin-top:10px;
+
 }
 
-.bottom-buttons {
-    display: flex;
+/* ===== CARDS ===== */
 
-    justify-content: center;
+.cards{
 
-    gap: 15px;
-
-    flex-wrap: wrap;
-}
-
-/* ВОЗМОЖНОСТИ */
-
-.features {
-    max-width: 1300px;
-
-    margin: auto;
-
-    padding: 80px 7%;
-}
-
-.section-title {
-    text-align: center;
-
-    margin-bottom: 50px;
-}
-
-.section-title h2 {
-    font-size: 42px;
-}
-
-.section-title p {
-    color: #777;
-
-    margin-top: 10px;
-}
-
-.cards {
-    display: grid;
+    display:grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+    repeat(3,1fr);
 
-    gap: 20px;
+    gap:20px;
+
 }
 
-.card {
-    padding: 30px;
+.card{
 
-    border-radius: 22px;
+    padding:30px;
 
-    background: rgba(255,255,255,.035);
+    border-radius:22px;
 
-    border: 1px solid rgba(199,125,255,.12);
+    background:#ffffff05;
 
-    transition: .3s;
+    border:1px solid #c77dff15;
+
+    transition:.4s;
+
+    opacity:0;
+
+    transform:translateY(40px);
+
 }
 
-.card:hover {
-    transform: translateY(-8px);
+.card.show{
 
-    border-color: rgba(199,125,255,.45);
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+.card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    border-color:#c77dff66;
 
     box-shadow:
-        0 15px 50px rgba(157,78,221,.15);
+    0 20px 60px #9d4edd20;
+
 }
 
-.icon {
-    font-size: 30px;
+.cardIcon{
 
-    margin-bottom: 18px;
+    font-size:35px;
+
+    margin-bottom:18px;
+
 }
 
-.card h3 {
-    margin-bottom: 12px;
+.card h3{
+
+    margin-bottom:12px;
+
 }
 
-.card p {
-    color: #888;
+.card p{
 
-    line-height: 1.6;
+    color:#888;
+
+    line-height:1.6;
+
 }
 
-/* DOWNLOAD */
+/* ===== СООБЩЕСТВО ===== */
 
-.download {
-    padding: 100px 7%;
+.community{
 
-    text-align: center;
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:100px 7%;
+
 }
 
-.download-box {
-    max-width: 900px;
+.communityBox{
 
-    margin: auto;
+    text-align:center;
 
-    padding: 70px 30px;
+    padding:60px 30px;
 
-    border-radius: 30px;
+    border-radius:30px;
 
-    border: 1px solid rgba(199,125,255,.2);
+    border:1px solid #c77dff25;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(157,78,221,.2),
-            transparent 65%
-        );
+    radial-gradient(
+        circle at top,
+        #9d4edd25,
+        transparent 60%
+    );
+
+    box-shadow:
+    0 0 80px #9d4edd12;
+
 }
 
-.download-box h2 {
-    font-size: 45px;
+.communityIcon{
 
-    margin-bottom: 15px;
+    font-size:55px;
+
+    animation:floatIcon 2.5s infinite ease-in-out;
+
 }
 
-.download-box p {
-    color: #888;
+@keyframes floatIcon{
 
-    margin-bottom: 30px;
+    50%{
+        transform:translateY(-12px) rotate(5deg);
+    }
+
 }
 
-/* FOOTER */
+.communityBox h2{
 
-footer {
-    padding: 35px;
+    font-size:43px;
 
-    text-align: center;
+    margin:15px 0;
 
-    color: #555;
-
-    border-top: 1px solid #211329;
 }
 
-/* MOBILE */
+.communityBox > p{
 
-@media(max-width: 850px) {
+    color:#888;
 
-    nav {
-        display: none;
-    }
+    margin-bottom:35px;
 
-    .hero {
-        flex-direction: column;
-
-        text-align: center;
-
-        padding-top: 130px;
-    }
-
-    .buttons {
-        justify-content: center;
-    }
-
-    .phone-wrapper {
-        width: 100%;
-
-        margin-top: 30px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
 }
 
-@media(max-width: 450px) {
+.communityGrid{
 
-    .phone {
-        width: 230px;
-        height: 465px;
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+.communityBtn{
+
+    min-height:70px;
+
+    border-radius:16px;
+
+    border:1px solid #c77dff18;
+
+    background:#ffffff06;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    transition:.35s;
+
+}
+
+.communityBtn:hover{
+
+    transform:
+    translateY(-7px)
+    scale(1.02);
+
+    border-color:#a74dff;
+
+    background:#9d4edd18;
+
+    box-shadow:
+    0 15px 40px #9d4edd25;
+
+}
+
+/* ===== POPUP ===== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s;
+
+    z-index:9999;
+
+}
+
+.popup.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#000c;
+
+    backdrop-filter:blur(15px);
+
+}
+
+.popupBox{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    max-width:650px;
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    padding:40px 30px;
+
+    border-radius:28px;
+
+    text-align:center;
+
+    background:
+    radial-gradient(
+        circle at top,
+        #9d4edd22,
+        transparent 55%
+    ),
+    #100817;
+
+    border:1px solid #c77dff33;
+
+    box-shadow:
+    0 0 100px #9d4edd33;
+
+    transform:
+    translateY(50px)
+    scale(.85);
+
+    transition:.45s;
+
+}
+
+.popup.active .popupBox{
+
+    transform:
+    translateY(0)
+    scale(1);
+
+}
+
+.close{
+
+    position:absolute;
+
+    top:15px;
+
+    right:15px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:12px;
+
+    border:1px solid #ffffff15;
+
+    background:#ffffff08;
+
+    color:#aaa;
+
+    font-size:25px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.close:hover{
+
+    background:#9d4edd;
+
+    color:white;
+
+    transform:rotate(90deg);
+
+}
+
+.popupIcon{
+
+    font-size:65px;
+
+    margin-bottom:15px;
+
+    animation:popupIcon 2s infinite ease-in-out;
+
+}
+
+@keyframes popupIcon{
+
+    50%{
+        transform:translateY(-10px);
     }
 
-    .bottom-panel h2,
-    .download-box h2 {
-        font-size: 32px;
+}
+
+.popupBox h2{
+
+    font-size:32px;
+
+    margin-bottom:15px;
+
+}
+
+.popupBox p{
+
+    color:#888;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
+
+}
+
+.popupButtons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:12px;
+
+}
+
+.popupBtn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:14px 22px;
+
+    border-radius:13px;
+
+    color:white;
+
+    text-decoration:none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7522c7,
+        #c25cff
+    );
+
+    border:none;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.popupBtn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 0 35px #9d4edd66;
+
+}
+
+/* ===== DOWNLOAD DISABLED ===== */
+
+.disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    background:#ffffff0a;
+
+    border:1px solid #ffffff10;
+
+}
+
+.disabled:hover{
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+/* ===== ПРЕВЬЮ ===== */
+
+.previewImage{
+
+    width:100%;
+
+    max-height:430px;
+
+    object-fit:contain;
+
+    border-radius:20px;
+
+    margin:10px 0 25px;
+
+    border:1px solid #c77dff33;
+
+    box-shadow:
+    0 0 40px #9d4edd25;
+
+    animation:imageIn .7s ease;
+
+}
+
+@keyframes imageIn{
+
+    from{
+        opacity:0;
+        transform:scale(.9);
     }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+
+    text-align:center;
+
+    padding:40px 20px;
+
+    color:#555;
+
+    border-top:1px solid #ffffff08;
+
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:900px){
+
+    nav a:not(.home){
+        display:none;
+    }
+
+    .hero{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        padding-top:130px;
+
+    }
+
+    .buttons{
+
+        justify-content:center;
+
+    }
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .phoneArea{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .communityGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .popupBox{
+
+        padding:35px 20px;
+
+    }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
-<!-- HEADER -->
+<div class="light one"></div>
+<div class="light two"></div>
+<div class="light three"></div>
+
+<div class="particle p1"></div>
+<div class="particle p2"></div>
+<div class="particle p3"></div>
+<div class="particle p4"></div>
+<div class="particle p5"></div>
+<div class="particle p6"></div>
+
+
+<!-- ===== HEADER ===== -->
 
 <header>
 
-    <div class="header">
+<div class="header">
 
-        <div class="logo">
-            TNZQASAQ
-        </div>
+<div class="logo">
+TNZQASAQ
+</div>
 
-        <nav>
+<nav>
 
-            <a href="#home">
-                Главная
-            </a>
+<a href="#features">
+Возможности
+</a>
 
-            <a href="#features">
-                Возможности
-            </a>
+<a href="#community">
+💬 Сообщество
+</a>
 
-            <a href="#download">
-                Скачать
-            </a>
+<a href="#top" class="home">
+🏠
+</a>
 
-        </nav>
+</nav>
 
-    </div>
+</div>
 
 </header>
 
 
-<!-- ГЛАВНЫЙ ЭКРАН -->
+<!-- ===== HERO ===== -->
 
-<section
-    class="hero"
-    id="home"
+<section class="hero" id="top">
+
+<div class="heroText">
+
+<div class="badge">
+⚡ TNZQASAQ 1.0 Beta
+</div>
+
+<h1>
+
+TNZQASAQ
+
+<br>
+
+<span class="gradient">
+1.0 Beta
+</span>
+
+</h1>
+
+<p class="description">
+
+Современная виртуалка TNZQASAQ
+с красивым интерфейсом, плавными
+анимациями и удобным управлением.
+
+</p>
+
+<div class="buttons">
+
+<button
+class="btn primary"
+onclick="openWindow('presentation')"
 >
+📱 Презентация виртуалки
+</button>
 
-    <div class="hero-text">
-
-        <div class="version">
-            ⚡ TNZQASAQ 1.0 Beta
-        </div>
-
-        <h1>
-
-            TNZQASAQ
-
-            <br>
-
-            <span class="gradient">
-                1.0 Beta
-            </span>
-
-        </h1>
-
-        <p class="description">
-
-            Новая виртуальная среда
-            TNZQASAQ для Android.
-            Удобный интерфейс, быстрый запуск
-            и множество возможностей.
-
-        </p>
-
-
-        <div class="buttons">
-
-            <!-- ЗАМЕНИ ССЫЛКУ НА СВОЙ APK -->
-
-            <a
-                href="YOUR_APK_LINK.apk"
-                class="btn download-btn"
-                download
-            >
-                ↓ Скачать TNZQASAQ
-            </a>
-
-            <a
-                href="#features"
-                class="btn secondary"
-            >
-                Узнать больше
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- ПАРЯЩИЙ ТЕЛЕФОН -->
-
-    <div class="phone-wrapper">
-
-        <div class="phone">
-
-            <div class="phone-screen">
-
-                <div class="camera"></div>
-
-                <div class="phone-logo">
-                    TNZQASAQ
-                </div>
-
-                <div class="phone-version">
-                    BETA 1.0
-                </div>
-
-                <div class="phone-status">
-                    VIRTUAL ENVIRONMENT
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- НИЖНИЕ КНОПКИ -->
-
-<section class="bottom-panel">
-
-    <h2>
-        TNZQASAQ 1.0 Beta
-    </h2>
-
-    <p>
-        Попробуй новую версию виртуалки
-    </p>
-
-    <div class="bottom-buttons">
-
-        <a
-            href="#download"
-            class="btn download-btn"
-        >
-            📱 Скачать виртуалку
-        </a>
-
-        <a
-            href="#features"
-            class="btn secondary"
-        >
-            ⚡ Возможности
-        </a>
-
-        <a
-            href="https://t.me/tnzqasaq"
-            target="_blank"
-            class="btn secondary"
-        >
-            💬 Telegram
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ВОЗМОЖНОСТИ -->
-
-<section
-    class="features"
-    id="features"
+<button
+class="btn secondary"
+onclick="openWindow('telegram')"
 >
+✈️ Telegram
+</button>
 
-    <div class="section-title">
+</div>
 
-        <h2>
-            Возможности
-        </h2>
-
-        <p>
-            Что тебя ждёт в TNZQASAQ 1.0 Beta
-        </p>
-
-    </div>
+</div>
 
 
-    <div class="cards">
+<!-- PHONE -->
 
-        <div class="card">
+<div class="phoneArea">
 
-            <div class="icon">
-                🚀
-            </div>
+<div class="phone">
 
-            <h3>
-                Быстрый запуск
-            </h3>
+<div class="phoneScreen">
 
-            <p>
-                Удобный запуск виртуальной
-                среды прямо на Android.
-            </p>
+<div class="camera"></div>
 
-        </div>
+<div class="phoneLogo">
+TNZQASAQ
+</div>
 
+<div class="phoneVersion">
+BETA 1.0
+</div>
 
-        <div class="card">
+</div>
 
-            <div class="icon">
-                🎮
-            </div>
+</div>
 
-            <h3>
-                Игры и приложения
-            </h3>
-
-            <p>
-                Используй приложения и игры
-                внутри виртуальной среды.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                🔒
-            </div>
-
-            <h3>
-                Виртуальная среда
-            </h3>
-
-            <p>
-                Отдельное пространство
-                для запуска приложений.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                🎨
-            </div>
-
-            <h3>
-                Неоновый дизайн
-            </h3>
-
-            <p>
-                Современный фиолетовый
-                интерфейс TNZQASAQ.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                ⚙️
-            </div>
-
-            <h3>
-                Настройки
-            </h3>
-
-            <p>
-                Настраивай виртуальную среду
-                под свои задачи.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">
-                📱
-            </div>
-
-            <h3>
-                Android
-            </h3>
-
-            <p>
-                Проект создан для использования
-                на мобильных устройствах.
-            </p>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- СКАЧИВАНИЕ -->
+<!-- ===== FEATURES ===== -->
 
-<section
-    class="download"
-    id="download"
+<section class="section" id="features">
+
+<div class="title">
+
+<h2>
+Возможности
+</h2>
+
+<p>
+TNZQASAQ 1.0 Beta
+</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<div class="cardIcon">
+🚀
+</div>
+
+<h3>
+Быстрый запуск
+</h3>
+
+<p>
+Удобный запуск виртуальной среды
+и быстрый доступ к приложениям.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="cardIcon">
+🎮
+</div>
+
+<h3>
+Игры и приложения
+</h3>
+
+<p>
+Используй приложения и игры
+внутри виртуальной среды.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="cardIcon">
+🎨
+</div>
+
+<h3>
+Красивый интерфейс
+</h3>
+
+<p>
+Современный интерфейс
+с плавными эффектами.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="cardIcon">
+⚙️
+</div>
+
+<h3>
+Настройки
+</h3>
+
+<p>
+Удобная настройка виртуальной
+среды под свои задачи.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="cardIcon">
+📱
+</div>
+
+<h3>
+Android
+</h3>
+
+<p>
+Интерфейс адаптирован
+для мобильных устройств.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="cardIcon">
+✨
+</div>
+
+<h3>
+Анимации
+</h3>
+
+<p>
+Плавные переходы, эффекты
+и интерактивные элементы.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===== COMMUNITY ===== -->
+
+<section class="community" id="community">
+
+<div class="communityBox">
+
+<div class="communityIcon">
+💬
+</div>
+
+<h2>
+Сообщество
+</h2>
+
+<p>
+Все ресурсы TNZQASAQ
+в одном месте.
+</p>
+
+
+<div class="communityGrid">
+
+
+<button
+class="communityBtn"
+onclick="openWindow('telegram')"
 >
+✈️ Telegram
+</button>
 
-    <div class="download-box">
 
-        <h2>
-            Скачать TNZQASAQ
-        </h2>
+<button
+class="communityBtn"
+onclick="openWindow('news')"
+>
+📰 Канал новостей
+</button>
 
-        <p>
-            TNZQASAQ 1.0 Beta — Android
-        </p>
 
-        <!-- ЗАМЕНИ YOUR_APK_LINK.apk НА ССЫЛКУ НА APK -->
+<button
+class="communityBtn"
+onclick="openWindow('support')"
+>
+🛠️ Поддержка
+</button>
 
-        <a
-            href="YOUR_APK_LINK.apk"
-            class="btn download-btn"
-            download
-        >
-            ↓ Скачать APK
-        </a>
 
-    </div>
+<button
+class="communityBtn"
+onclick="openWindow('feature')"
+>
+💡 Предложить функцию
+</button>
+
+
+<button
+class="communityBtn"
+onclick="openWindow('bug')"
+>
+🐛 Сообщить об ошибке
+</button>
+
+
+<button
+class="communityBtn"
+onclick="openWindow('presentation')"
+>
+📱 Презентация виртуалки
+</button>
+
+
+</div>
+
+</div>
 
 </section>
 
-
-<!-- FOOTER -->
 
 <footer>
 
-    TNZQASAQ 1.0 Beta
+TNZQASAQ 1.0 Beta
 
-    <br><br>
+<br><br>
 
-    © 2026 TNZQASAQ
+© 2026 TNZQASAQ
 
 </footer>
+
+
+<!-- ===== POPUP ===== -->
+
+<div class="popup" id="popup">
+
+<div class="overlay" onclick="closeWindow()"></div>
+
+<div class="popupBox">
+
+<button
+class="close"
+onclick="closeWindow()"
+>
+×
+</button>
+
+<div id="popupContent"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ===== КАРТОЧКИ ===== */
+
+const cards =
+document.querySelectorAll(".card");
+
+const observer =
+new IntersectionObserver(
+entries => {
+
+entries.forEach(entry => {
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+}
+
+});
+
+},
+{
+threshold:.15
+}
+);
+
+cards.forEach(
+card => observer.observe(card)
+);
+
+
+/* ===== POPUP ===== */
+
+const popup =
+document.getElementById("popup");
+
+const popupContent =
+document.getElementById("popupContent");
+
+
+function openWindow(type){
+
+let content = "";
+
+
+/* TELEGRAM */
+
+if(type === "telegram"){
+
+content = `
+
+<div class="popupIcon">
+✈️
+</div>
+
+<h2>
+Telegram
+</h2>
+
+<p>
+Наш основной Telegram-канал.
+Следи за новостями проекта,
+обновлениями и релизами.
+</p>
+
+<div class="popupButtons">
+
+<a
+href="https://t.me/tnzqasaq"
+target="_blank"
+class="popupBtn"
+>
+✈️ Открыть Telegram
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* НОВОСТИ */
+
+if(type === "news"){
+
+content = `
+
+<div class="popupIcon">
+📰
+</div>
+
+<h2>
+Канал новостей
+</h2>
+
+<p>
+Здесь будут публиковаться новости,
+обновления и информация
+о TNZQASAQ.
+</p>
+
+<div class="popupButtons">
+
+<a
+href="https://t.me/tnzqasaq"
+target="_blank"
+class="popupBtn"
+>
+📰 Открыть канал
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* ПОДДЕРЖКА */
+
+if(type === "support"){
+
+content = `
+
+<div class="popupIcon">
+🛠️
+</div>
+
+<h2>
+Поддержка
+</h2>
+
+<p>
+Если у тебя возникла проблема,
+напиши нашей поддержке
+в Telegram.
+</p>
+
+<div class="popupButtons">
+
+<a
+href="https://t.me/tnzqasaq_Bot"
+target="_blank"
+class="popupBtn"
+>
+🛠️ Написать поддержке
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* ФУНКЦИЯ */
+
+if(type === "feature"){
+
+content = `
+
+<div class="popupIcon">
+💡
+</div>
+
+<h2>
+Предложить функцию
+</h2>
+
+<p>
+Есть идея для новой функции?
+Отправь своё предложение
+нам в Telegram.
+</p>
+
+<div class="popupButtons">
+
+<a
+href="https://t.me/tnzqasaq_Bot"
+target="_blank"
+class="popupBtn"
+>
+💡 Предложить функцию
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* ОШИБКА */
+
+if(type === "bug"){
+
+content = `
+
+<div class="popupIcon">
+🐛
+</div>
+
+<h2>
+Сообщить об ошибке
+</h2>
+
+<p>
+Нашёл ошибку или проблему?
+Расскажи нам о ней,
+и мы постараемся исправить её.
+</p>
+
+<div class="popupButtons">
+
+<a
+href="https://t.me/tnzqasaq_Bot"
+target="_blank"
+class="popupBtn"
+>
+🐛 Сообщить об ошибке
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* ===== ПРЕЗЕНТАЦИЯ ===== */
+
+if(type === "presentation"){
+
+content = `
+
+<div class="popupIcon">
+📱
+</div>
+
+<h2>
+Презентация виртуалки
+</h2>
+
+<p>
+<b style="color:#d69aff">
+TNZQASAQ 1.0 Beta
+</b>
+<br><br>
+
+🚧 Виртуалка ещё не вышла.
+<br>
+Скоро состоится официальный релиз!
+
+</p>
+
+
+<div class="popupButtons">
+
+
+<!-- СКАЧАТЬ -->
+
+<button
+class="popupBtn disabled"
+disabled
+title="Виртуалка ещё не вышла"
+>
+⏳ Скачать — скоро релиз
+</button>
+
+
+<!-- ФОТКА -->
+
+<a
+href="https://ibb.co/zHNpFvcP"
+target="_blank"
+class="popupBtn"
+>
+📸 Фотка виртуалки
+</a>
+
+
+</div>
+
+`;
+
+}
+
+
+popupContent.innerHTML =
+content;
+
+popup.classList.add("active");
+
+document.body.style.overflow =
+"hidden";
+
+}
+
+
+/* ===== CLOSE ===== */
+
+function closeWindow(){
+
+popup.classList.remove("active");
+
+document.body.style.overflow =
+"";
+
+}
+
+
+/* ESC */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+if(e.key === "Escape"){
+
+closeWindow();
+
+}
+
+}
+);
+
+</script>
 
 </body>
 </html>
