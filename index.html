@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tnzqasaq — Скачать виртуалку</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 20%, #7b2cff55, transparent 30%),
+                radial-gradient(circle at 80% 80%, #b000ff44, transparent 30%),
+                #09000f;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 58px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow:
+                0 0 10px #9d00ff,
+                0 0 25px #9d00ff,
+                0 0 50px #6a00ff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #cda8ff;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .downloads {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(25, 5, 40, 0.85);
+            border: 1px solid #9d00ff;
+            border-radius: 22px;
+            padding: 35px 25px;
+            box-shadow:
+                0 0 15px #7b00ff66,
+                inset 0 0 20px #7b00ff22;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 0 25px #a600ff,
+                0 0 60px #6f00ff55;
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #bda7cc;
+            margin-bottom: 25px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 14px 30px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7b00ff, #c000ff);
+            box-shadow:
+                0 0 12px #9d00ff,
+                0 0 30px #7200ff66;
+            transition: 0.25s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.06);
+            box-shadow:
+                0 0 20px #c000ff,
+                0 0 45px #9d00ff;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #80698f;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .downloads {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">TNZQASAQ</div>
+
+    <div class="subtitle">
+        Официальная страница загрузки виртуалки
+    </div>
+
+    <div class="downloads">
+
+        <div class="card">
+            <div class="icon">📱</div>
+
+            <h2>Виртуалка Tnzqasaq</h2>
+
+            <p>
+                Основной файл виртуалки
+            </p>
+
+            <a class="download-btn"
+               href="Tnzqasaq.apk"
+               download>
+                ⬇ Скачать
+            </a>
+        </div>
+
+
+        <div class="card">
+            <div class="icon">⚡</div>
+
+            <h2>Дополнительный файл</h2>
+
+            <p>
+                Дополнительный компонент виртуалки
+            </p>
+
+            <a class="download-btn"
+               href="Virtualka.apk"
+               download>
+                ⬇ Скачать
+            </a>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 Tnzqasaq
+    </div>
+
+</div>
+
+</body>
+</html>
