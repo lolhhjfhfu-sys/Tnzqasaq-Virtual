@@ -1,3 +1,1184 @@
-<audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio><button onclick="toggleMusic()">🎵 Музыка</button>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TNZQASAQ Virtual — Beta 1.0</title>
+
+<style>
+:root{
+--bg:#05030a;--card:rgba(255,255,255,.06);--text:#fff;--muted:#aaa;
+--main:#a855f7;--second:#ec4899;--border:rgba(255,255,255,.13);
+--green:#35e88b;--yellow:#ffd34e;--red:#ff4f6d;--blue:#45a8ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+background:
+radial-gradient(circle at 10% 10%,#8b5cf733,transparent 30%),
+radial-gradient(circle at 90% 60%,#ec489922,transparent 35%),var(--bg);
+color:var(--text);font-family:Arial,Helvetica,sans-serif;
+overflow-x:hidden;transition:.4s;
+}
+body.light{--bg:#f4f3f7;--card:rgba(255,255,255,.8);--text:#151217;--muted:#666;--border:#ddd}
+body.blue{--main:#168cff;--second:#00d5ff}
+body.red{--main:#ff315d;--second:#ff7b35}
+body.orange{--main:#ff7a00;--second:#ffb000}
+body.carbon{
+--main:#aaa;--second:#555;
+background:linear-gradient(135deg,#050505,#151515,#070707);
+}
+body.cs2{
+--main:#f5a623;--second:#e85d04;
+background:radial-gradient(circle at 50% 0%,#ff980033,transparent 35%),#090909;
+}
+body.no-animation *{animation:none!important;transition:none!important}
+button,a{font-family:inherit}
+button{cursor:pointer}
+
+#particles{position:fixed;inset:0;pointer-events:none;z-index:-1}
+.particle{
+position:absolute;width:3px;height:3px;border-radius:50%;
+background:var(--main);box-shadow:0 0 15px var(--main);
+animation:particle 9s linear infinite;
+}
+@keyframes particle{
+from{transform:translateY(110vh);opacity:0}
+20%{opacity:1}80%{opacity:1}
+to{transform:translateY(-10vh);opacity:0}
+}
+
+header{
+position:fixed;top:0;left:0;right:0;z-index:1000;
+background:#05030acc;backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
+}
+.header{
+max-width:1450px;margin:auto;padding:14px 4%;
+display:flex;align-items:center;justify-content:space-between;gap:15px;
+}
+.logo{
+font-size:22px;font-weight:900;color:var(--main);
+text-shadow:0 0 20px var(--main);animation:logo 2s infinite alternate;
+}
+@keyframes logo{to{filter:brightness(1.5)}}
+nav{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+nav button{
+color:#aaa;background:transparent;border:0;padding:9px 11px;
+border-radius:12px;transition:.3s;font-size:14px;
+}
+nav button:hover{color:#fff;background:#ffffff10;transform:translateY(-2px)}
+.actions{display:flex;gap:7px}
+.icon-btn{
+width:42px;height:42px;color:#fff;background:#ffffff08;
+border:1px solid var(--border);border-radius:12px;transition:.3s;
+}
+.icon-btn:hover{transform:translateY(-3px);border-color:var(--main)}
+
+main{padding-top:70px}
+section{max-width:1350px;margin:auto;padding:90px 6%}
+
+.hero{
+min-height:calc(100vh - 70px);display:flex;align-items:center;
+justify-content:space-between;gap:60px;
+}
+.hero-text{max-width:700px;animation:hero .9s ease}
+@keyframes hero{
+from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:none}
+}
+.badge{
+display:inline-block;padding:9px 15px;border:1px solid #a855f766;
+border-radius:30px;background:#a855f711;color:#dcbaff;margin-bottom:20px;
+}
+h1{font-size:clamp(50px,8vw,95px);line-height:.9;margin-bottom:25px}
+.gradient{
+color:transparent;
+background:linear-gradient(90deg,var(--main),white,var(--second),var(--main));
+background-size:300%;background-clip:text;animation:gradient 5s linear infinite;
+}
+@keyframes gradient{to{background-position:300%}}
+.description{color:var(--muted);font-size:18px;line-height:1.7}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{
+border:0;border-radius:14px;padding:14px 20px;color:#fff;font-weight:bold;
+text-decoration:none;transition:.3s;display:inline-block;
+}
+.btn:hover{transform:translateY(-4px)}
+.primary{background:linear-gradient(135deg,var(--main),var(--second));box-shadow:0 0 30px #a855f744}
+.secondary{background:#ffffff09;border:1px solid var(--border)}
+
+.phone{
+width:285px;height:560px;padding:10px;border-radius:45px;
+background:linear-gradient(145deg,#777,#111);border:2px solid #777;
+box-shadow:0 0 0 5px #151515,0 0 100px #a855f766;
+animation:phone 4s ease-in-out infinite;transition:.2s;
+}
+@keyframes phone{
+50%{transform:translateY(-18px) rotate(-3deg)}
+}
+.phone-screen{
+width:100%;height:100%;border-radius:35px;
+background:radial-gradient(circle at 50% 30%,#a855f755,transparent 35%),#0b0712;
+display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+}
+.notch{position:absolute;top:12px;width:90px;height:22px;border-radius:20px;background:#000}
+.phone-content{text-align:center;padding:25px}
+.phone-logo{font-size:28px;font-weight:900;text-shadow:0 0 25px var(--main)}
+.version{margin-top:8px;color:#aaa;letter-spacing:4px;font-size:10px}
+.online{
+display:inline-block;margin-top:20px;padding:7px 12px;border-radius:20px;
+color:var(--green);background:#35e88b11;border:1px solid #35e88b44;font-size:10px;
+}
+.phone-download{
+width:100%;margin-top:25px;padding:13px;border:0;border-radius:13px;
+background:linear-gradient(135deg,var(--main),var(--second));color:#fff;font-weight:bold;
+}
+
+.section-title{text-align:center;margin-bottom:40px}
+.section-title h2{font-size:42px;margin-bottom:10px}
+.section-title p{color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stat{
+text-align:center;padding:30px;border-radius:22px;background:var(--card);
+border:1px solid var(--border);transition:.35s;
+}
+.stat:hover{transform:translateY(-7px);border-color:#a855f766}
+.stat-icon{font-size:32px}
+.number{font-size:38px;font-weight:900;color:var(--main);margin:8px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+padding:27px;border-radius:22px;background:var(--card);
+border:1px solid var(--border);transition:.35s;
+}
+.card:hover{transform:translateY(-8px);border-color:#a855f766;box-shadow:0 20px 50px #a855f722}
+.card-icon{font-size:38px}
+.card h3{margin:13px 0}
+.card p{color:var(--muted);line-height:1.6}
+
+.center,.vote,.bugs,.notifications,.news{
+max-width:900px;margin:auto;padding:25px;border-radius:22px;
+background:var(--card);border:1px solid var(--border);
+}
+.status-row{
+display:flex;justify-content:space-between;padding:16px;margin:7px 0;
+border-radius:14px;background:#ffffff06;
+}
+.green{color:var(--green)}.yellow{color:var(--yellow)}
+.red-text{color:var(--red)}.blue-text{color:var(--blue)}
+
+.community{
+padding:55px 25px;text-align:center;border-radius:25px;
+background:radial-gradient(circle at top,#a855f733,transparent 60%),var(--card);
+border:1px solid var(--border);
+}
+.community-buttons{
+max-width:900px;margin:30px auto 0;display:grid;
+grid-template-columns:repeat(2,1fr);gap:12px;
+}
+.community-button{
+padding:20px;border-radius:15px;background:#ffffff06;
+border:1px solid var(--border);color:var(--text);font-weight:bold;transition:.3s;
+}
+.community-button:hover{transform:translateY(-5px);border-color:#a855f766}
+
+.timeline{max-width:850px;margin:auto;position:relative}
+.timeline:before{
+content:"";position:absolute;left:20px;top:0;bottom:0;width:2px;
+background:linear-gradient(var(--main),var(--second));
+}
+.timeline-item{
+position:relative;margin:0 0 20px 50px;padding:22px;border-radius:18px;
+background:var(--card);border:1px solid var(--border);
+}
+.timeline-item:before{
+content:"";position:absolute;left:-39px;top:25px;width:16px;height:16px;
+border-radius:50%;background:var(--main);box-shadow:0 0 20px var(--main);
+}
+
+.team-avatar{
+width:85px;height:85px;margin:auto;display:flex;align-items:center;
+justify-content:center;border-radius:50%;font-size:35px;
+background:linear-gradient(135deg,var(--main),var(--second));
+box-shadow:0 0 30px #a855f755;
+}
+.team-card{text-align:center}.role{color:var(--muted);font-size:13px}
+
+.vote-option{
+display:block;padding:17px;margin:10px 0;border:1px solid var(--border);
+border-radius:14px;cursor:pointer;transition:.3s;
+}
+.vote-option:hover{border-color:var(--main);transform:translateX(5px)}
+.vote-option input{margin-right:10px}
+
+.news-item,.bug,.notification{
+padding:20px;border-radius:15px;background:#ffffff06;
+border:1px solid var(--border);margin-bottom:12px;
+}
+.news-item b{color:var(--main)}
+
+.status{
+display:inline-block;padding:6px 10px;border-radius:20px;font-size:12px;
+}
+.status.red{background:#ff4d6d22;color:#ff6b84}
+.status.yellow{background:#ffd34e22;color:#ffd34e}
+.status.blue{background:#45a8ff22;color:#45a8ff}
+.status.green{background:#35e88b22;color:#35e88b}
+
+.archive{
+max-width:900px;margin:auto;overflow:hidden;border-radius:22px;
+background:var(--card);border:1px solid var(--border);
+}
+table{width:100%;border-collapse:collapse}
+th,td{padding:18px;text-align:left;border-bottom:1px solid var(--border)}
+
+.achievement{display:flex;align-items:center;gap:18px}
+.achievement-icon{font-size:40px}
+.achievement small{color:var(--muted)}
+
+.paid{
+display:inline-block;padding:6px 10px;margin-top:8px;border-radius:20px;
+color:#ffd34e;background:#ffd34e15;border:1px solid #ffd34e33;font-size:12px;
+}
+
+.wallpaper-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+.wallpaper{
+min-height:180px;border-radius:22px;padding:20px;display:flex;
+flex-direction:column;justify-content:end;border:1px solid var(--border);
+overflow:hidden;position:relative;transition:.35s;
+}
+.wallpaper:hover{transform:translateY(-8px) scale(1.02)}
+.wallpaper h3{position:relative;z-index:2}
+.wallpaper button{
+position:relative;z-index:2;margin-top:10px;padding:10px;border:0;
+border-radius:10px;color:#fff;background:#0008;
+}
+.neon-wall{background:radial-gradient(circle at 30% 30%,#a855f7,transparent 30%),linear-gradient(135deg,#05000b,#32005c)}
+.cyber-wall{background:linear-gradient(135deg,#071b28,#30102e,#050505)}
+.galaxy-wall{background:radial-gradient(circle at 25% 25%,#9d4edd,transparent 15%),radial-gradient(circle at 70% 70%,#2563eb,transparent 20%),#03030e}
+.minimal-wall{background:linear-gradient(135deg,#111,#444)}
+.gaming-wall{background:radial-gradient(circle at 50% 20%,#ff1744,transparent 25%),linear-gradient(135deg,#090909,#30000b)}
+
+.modal{
+position:fixed;inset:0;z-index:5000;display:flex;align-items:center;
+justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:.3s;
+}
+.modal.active{opacity:1;visibility:visible}
+.overlay{position:absolute;inset:0;background:#000c;backdrop-filter:blur(15px)}
+.modal-box{
+position:relative;z-index:2;width:min(750px,100%);max-height:90vh;overflow:auto;
+padding:35px;border-radius:27px;background:#0d0915;
+border:1px solid #a855f766;box-shadow:0 0 100px #a855f733;
+transform:translateY(30px) scale(.9);transition:.35s;
+}
+.modal.active .modal-box{transform:none}
+.close{
+position:absolute;right:15px;top:15px;width:40px;height:40px;border-radius:12px;
+border:1px solid var(--border);background:#ffffff09;color:#fff;font-size:22px;
+}
+.modal-content{text-align:center}
+.modal-icon{font-size:55px;margin-bottom:15px}
+.modal-content h2{font-size:32px;margin-bottom:15px}
+.modal-content p{color:#aaa;line-height:1.7}
+.modal-buttons{
+display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:25px;
+}
+.theme-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+.theme-button{
+padding:15px;border-radius:13px;background:#ffffff09;
+border:1px solid var(--border);color:#fff;
+}
+.setting{
+display:flex;justify-content:space-between;align-items:center;padding:17px;
+margin-top:10px;border:1px solid var(--border);border-radius:15px;background:#ffffff06;
+}
+.switch{width:55px;height:30px;padding:3px;background:#333;border-radius:30px}
+.switch span{display:block;width:24px;height:24px;border-radius:50%;background:#fff;transition:.3s}
+.switch.on{background:var(--main)}
+.switch.on span{transform:translateX(25px)}
+
+footer{
+padding:60px 20px;text-align:center;color:#777;border-top:1px solid var(--border);
+}
+.easter{
+position:fixed;right:18px;bottom:18px;width:45px;height:45px;border-radius:50%;
+background:#a855f711;border:1px solid #a855f766;
+}
+
+@media(max-width:1000px){
+.hero{flex-direction:column;text-align:center}
+.cards{grid-template-columns:repeat(2,1fr)}
+.wallpaper-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+.header{padding:12px 3%}nav{display:none}
+h1{font-size:55px}.stats,.cards{grid-template-columns:1fr}
+.wallpaper-grid{grid-template-columns:1fr}
+.community-buttons{grid-template-columns:1fr}
+.phone{width:250px;height:500px}
+section{padding:65px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<header>
+<div class="header">
+
+<div class="logo">TNZQASAQ</div>
+
+<nav>
+<button onclick="goTop()">Главная</button>
+<button onclick="openFeatures()">✨ Возможности</button>
+<button onclick="openGames()">🎮 Игры</button>
+<button onclick="openCommunity()">💬 Сообщество</button>
+<button onclick="openTeam()">👥 Команда</button>
+<button onclick="openTools()">⚙️ Центр</button>
+</nav>
+
+<div class="actions">
+<button class="icon-btn" onclick="goTop()">⌂</button>
+<button class="icon-btn" onclick="openNotifications()">🔔</button>
+<button class="icon-btn" onclick="openAccount()">👤</button>
+<button class="icon-btn" onclick="openSettings()">⚙️</button>
+</div>
+
+</div>
+</header>
+
+<main>
+
+<!-- ГЛАВНАЯ. НЕ УБИРАЛ -->
+<section class="hero">
+
+<div class="hero-text">
+
+<div class="badge">⚡ BETA 1.0 • СКОРО РЕЛИЗ</div>
+
+<h1>
+TNZQASAQ<br>
+<span class="gradient">1.0 Beta</span>
+</h1>
+
+<p class="description">
+Современная виртуалка TNZQASAQ с игровыми возможностями,
+неоновым интерфейсом и большим количеством функций.
+</p>
+
+<div class="buttons">
+
+<button class="btn primary" onclick="presentation()">
+📱 Презентация
+</button>
+
+<a class="btn secondary" href="https://t.me/tnzqasaq" target="_blank">
+✈️ Telegram
+</a>
+
+<button class="btn secondary" onclick="toggleMusic()">
+🎵 Музыка
+</button>
+
+<button class="btn secondary" onclick="openGames()">
+🎮 Игры
+</button>
+
+</div>
+</div>
+
+<div class="phone" id="phone">
+
+<div class="phone-screen">
+<div class="notch"></div>
+
+<div class="phone-content">
+
+<div class="phone-logo">TNZQASAQ</div>
+<div class="version">BETA 1.0</div>
+
+<div class="online">● В РАЗРАБОТКЕ</div>
+
+<button class="phone-download" onclick="downloadPopup()">
+📥 Скачать
+</button>
+
+</div>
+</div>
+</div>
+
+</section>
+
+<!-- СТАТИСТИКА -->
+<section>
+<div class="stats">
+
+<div class="stat">
+<div class="stat-icon">⭐</div>
+<div class="number">0.0</div>
+<div>Оценка виртуалки</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">📊</div>
+<div class="number">0</div>
+<div>Скачиваний</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">👥</div>
+<div class="number">0</div>
+<div>Пользователей</div>
+</div>
+
+</div>
+</section>
+
+<!-- ИСТОРИЯ ПРОЕКТА НЕ ТРОНУТА -->
+<section>
+
+<div class="section-title">
+<h2>📜 История проекта</h2>
+<p>Путь TNZQASAQ</p>
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<b>2025</b>
+<h3>🟣 Идея</h3>
+<p>Появилась идея создания собственной виртуалки.</p>
+</div>
+
+<div class="timeline-item">
+<h3>🟣 Начало разработки</h3>
+<p>Началась работа над первым прототипом.</p>
+</div>
+
+<div class="timeline-item">
+<h3>🟣 Alpha f1</h3>
+<p>Первый экспериментальный билд.</p>
+</div>
+
+<div class="timeline-item">
+<h3>🟣 Перерыв на 2 месяца из-за хейта</h3>
+<p>Разработка была временно приостановлена на два месяца.</p>
+</div>
+
+<div class="timeline-item">
+<h3>🟣 Подготовка Beta 1.0</h3>
+<p>Команда продолжила разработку проекта.</p>
+</div>
+
+<div class="timeline-item">
+<h3>🚀 Скоро релиз Beta 1.0</h3>
+<p>Финальная подготовка к релизу.</p>
+</div>
+
+</div>
+</section>
+
+</main>
+
+<footer>
+<b>TNZQASAQ Virtual — Beta 1.0</b>
+<br><br>
+2025–2026
+<br><br>
+Все права защищены © TNZQASAQ
+</footer>
+
+<button class="easter" onclick="easterEgg()">🥚</button>
+
+<div class="modal" id="modal">
+<div class="overlay" onclick="closeModal()"></div>
+<div class="modal-box">
+<button class="close" onclick="closeModal()">×</button>
+<div class="modal-content" id="modalContent"></div>
+</div>
+</div>
+
+<audio id="bgMusic" loop preload="auto">
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* ЧАСТИЦЫ */
+for(let i=0;i<70;i++){
+const p=document.createElement("div");
+p.className="particle";
+p.style.left=Math.random()*100+"%";
+p.style.animationDelay=(-Math.random()*10)+"s";
+p.style.animationDuration=(7+Math.random()*8)+"s";
+document.getElementById("particles").appendChild(p);
+}
+
+/* МОДАЛЬНЫЕ ОКНА */
+const modal=document.getElementById("modal");
+const modalContent=document.getElementById("modalContent");
+
+function openModal(html){
+modalContent.innerHTML=html;
+modal.classList.add("active");
+document.body.style.overflow="hidden";
+animationSound();
+}
+
+function closeModal(){
+modal.classList.remove("active");
+document.body.style.overflow="";
+}
+
+function goTop(){
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ЗВУК АНИМАЦИИ */
+let audioCtx;
+
+function animationSound(){
+try{
+audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();
+const osc=audioCtx.createOscillator();
+const gain=audioCtx.createGain();
+osc.frequency.value=520;
+gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(.035,audioCtx.currentTime+.02);
+gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.13);
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+osc.start();
+osc.stop(audioCtx.currentTime+.14);
+}catch(e){}
+}
+
+/* ПРЕЗЕНТАЦИЯ */
+function presentation(){
+openModal(`
+<div class="modal-icon">📱</div>
+<h2>TNZQASAQ Virtual</h2>
+<p>
+<b style="color:var(--main)">TNZQASAQ 1.0 Beta</b>
+<br><br>
+🚧 Виртуалка ещё не вышла.<br>
+Скоро будет релиз!
+<br><br>
+Пока можно посмотреть презентацию виртуалки.
+</p>
+
+<div class="modal-buttons">
+<button class="btn primary" onclick="downloadPopup()">📥 Скачать</button>
+<a class="btn secondary" href="https://ibb.co/zHNpFvcP" target="_blank">
+📸 Фото виртуалки
+</a>
+</div>
+`);
+}
+
+/* СКАЧИВАНИЕ */
+function downloadPopup(){
+openModal(`
+<div class="modal-icon">📥</div>
+<h2>Скоро релиз!</h2>
+<p>
+TNZQASAQ 1.0 Beta находится в разработке.
+<br><br>
+🔒 Скачивание пока недоступно.
+<br><br>
+📅 Ориентировочная дата релиза:<br>
+<b style="color:var(--main);font-size:20px">28 августа / 5 сентября</b>
+</p>
+<div class="modal-buttons">
+<button class="btn primary" onclick="openTelegram()">✈️ Telegram</button>
+<button class="btn secondary" onclick="presentation()">📱 Презентация</button>
+</div>
+`);
+}
+
+/* ВОЗМОЖНОСТИ */
+function openFeatures(){
+openModal(`
+<div class="modal-icon">✨</div>
+<h2>Возможности Beta 1.0</h2>
+<p>Все функции проекта собраны здесь, чтобы не перегружать главную страницу.</p>
+
+<div class="cards" style="margin-top:20px">
+
+<div class="card"><div class="card-icon">✨</div><h3>Анимированный фон</h3><p>Неоновые частицы и динамический фон.</p></div>
+<div class="card"><div class="card-icon">💫</div><h3>3D-интерфейс</h3><p>Интерактивный телефон и Parallax.</p></div>
+<div class="card"><div class="card-icon">🚀</div><h3>Performance</h3><p>Современный игровой интерфейс.</p></div>
+<div class="card"><div class="card-icon">🛡️</div><h3>Security</h3><p>Безопасная система проекта.</p></div>
+<div class="card"><div class="card-icon">🎮</div><h3>Gaming</h3><p>Функции для игрового использования.</p></div>
+<div class="card"><div class="card-icon">🔄</div><h3>Updates</h3><p>Центр обновлений проекта.</p></div>
+
+</div>
+`);
+}
+
+/* ИГРЫ */
+function openGames(){
+openModal(`
+<div class="modal-icon">🎮</div>
+<h2>Игры и софты</h2>
+<p>Платные софты пока находятся в разработке.</p>
+
+<div style="margin-top:20px">
+
+<div class="card" style="margin-bottom:12px;text-align:left">
+<h3>🎮 Project Evolution</h3>
+<span class="paid">💳 ПЛАТНО</span>
+<p>🚀 Скоро релиз</p>
+</div>
+
+<div class="card" style="margin-bottom:12px;text-align:left">
+<h3>🔫 Standknife</h3>
+<span class="paid">💳 ПЛАТНО</span>
+<p>🚀 Скоро релиз</p>
+</div>
+
+<div class="card" style="margin-bottom:12px;text-align:left">
+<h3>🎯 Standleo</h3>
+<span class="paid">💳 ПЛАТНО</span>
+<p>🚀 Скоро релиз</p>
+</div>
+
+</div>
+
+<div class="modal-buttons">
+<button class="btn primary" onclick="goToSoftware()">🌐 Перейти к софтам</button>
+</div>
+`);
+}
+
+function goToSoftware(){
+window.open("https://lolhhjfhfu-sys.github.io/platnospfttnz/#softs","_blank");
+}
+
+/* СООБЩЕСТВО */
+function openCommunity(){
+openModal(`
+<div class="modal-icon">💬</div>
+<h2>Сообщество TNZQASAQ</h2>
+<p>Все ссылки проекта находятся в одном окне.</p>
+
+<div class="community-buttons">
+
+<button class="community-button" onclick="openTelegram()">✈️ Telegram</button>
+<button class="community-button" onclick="openTelegram()">📰 Канал новостей</button>
+<button class="community-button" onclick="openBot()">🛠️ Поддержка</button>
+<button class="community-button" onclick="openBot()">💡 Предложить функцию</button>
+<button class="community-button" onclick="openBot()">🐛 Сообщить об ошибке</button>
+<button class="community-button" onclick="presentation()">📱 Презентация виртуалки</button>
+
+</div>
+`);
+}
+
+function openTelegram(){
+window.open("https://t.me/tnzqasaq","_blank");
+}
+
+function openBot(){
+window.open("https://t.me/tnzqasaq_Bot","_blank");
+}
+
+/* КОМАНДА */
+function openTeam(){
+openModal(`
+<div class="modal-icon">👥</div>
+<h2>Команда</h2>
+<p>Разработчики проекта TNZQASAQ.</p>
+
+<div class="cards" style="margin-top:25px">
+
+<div class="card team-card">
+<div class="team-avatar">👨‍💻</div>
+<h3>tnz1er52</h3>
+<div class="role">Разработчик</div>
+</div>
+
+<div class="card team-card">
+<div class="team-avatar">🎨</div>
+<h3>tnz1er52</h3>
+<div class="role">Дизайнер</div>
+</div>
+
+<div class="card team-card">
+<div class="team-avatar">🧪</div>
+<h3>noniks</h3>
+<div class="role">Тестировщик</div>
+</div>
+
+<div class="card team-card">
+<div class="team-avatar">🛠️</div>
+<h3>noniks</h3>
+<div class="role">Техническая часть</div>
+</div>
+
+</div>
+`);
+}
+
+/* ЦЕНТР */
+function openTools(){
+openModal(`
+<div class="modal-icon">🏆</div>
+<h2>Центр TNZQASAQ</h2>
+<p>Управление функциями проекта.</p>
+
+<div class="modal-buttons">
+
+<button class="btn primary" onclick="openUpdates()">🔄 Update Center</button>
+<button class="btn secondary" onclick="openWallpapers()">🖼️ Обои</button>
+<button class="btn secondary" onclick="openVote()">🗳️ Голосование</button>
+<button class="btn secondary" onclick="openBugs()">🐛 Bug Tracker</button>
+<button class="btn secondary" onclick="openArchive()">🗃️ Архив</button>
+<button class="btn secondary" onclick="openAchievements()">🏆 Достижения</button>
+
+</div>
+
+<div style="margin-top:25px;text-align:left">
+
+<div class="status-row"><span>🟢 Сервисы работают</span><b class="green">ONLINE</b></div>
+<div class="status-row"><span>🟢 Сервер загрузок работает</span><b class="green">ONLINE</b></div>
+<div class="status-row"><span>🟢 Telegram работает</span><b class="green">ONLINE</b></div>
+<div class="status-row"><span>🟡 Beta-система в разработке</span><b class="yellow">BETA</b></div>
+
+</div>
+`);
+}
+
+/* UPDATE */
+function openUpdates(){
+openModal(`
+<div class="modal-icon">🔄</div>
+<h2>Update Center</h2>
+<p>Проверка обновлений TNZQASAQ.</p>
+<button class="btn primary" style="margin-top:25px" onclick="checkUpdates()">🔄 Проверить обновления</button>
+<div id="updateResult" style="margin-top:20px;color:var(--main)">
+Последняя проверка ещё не выполнялась.
+</div>
+`);
+}
+
+function checkUpdates(){
+const result=document.getElementById("updateResult");
+result.innerHTML=`<div style="font-size:40px">🔍</div><b>Проверяем обновления...</b>`;
+
+setTimeout(()=>{
+result.innerHTML=`
+<div style="padding:22px;border-radius:18px;background:#35e88b12;border:1px solid #35e88b44">
+<div style="font-size:40px">🎉</div>
+<h3>Доступно обновление!</h3>
+<p style="color:#aaa;margin-top:8px">Beta 1.0 → Скоро релиз</p>
+</div>`;
+animationSound();
+},1500);
+}
+
+/* ОБОИ */
+function openWallpapers(){
+openModal(`
+<div class="modal-icon">🖼️</div>
+<h2>Wallpaper Center</h2>
+<p>Выбери оформление фона.</p>
+
+<div class="wallpaper-grid" style="margin-top:25px">
+
+<div class="wallpaper neon-wall"><h3>💜 Neon</h3>
+<button onclick="setWallpaper('neon')">Выбрать</button></div>
+
+<div class="wallpaper cyber-wall"><h3>🌆 Cyberpunk</h3>
+<button onclick="setWallpaper('cyberpunk')">Выбрать</button></div>
+
+<div class="wallpaper galaxy-wall"><h3>🌌 Galaxy</h3>
+<button onclick="setWallpaper('galaxy')">Выбрать</button></div>
+
+<div class="wallpaper minimal-wall"><h3>◻️ Minimal</h3>
+<button onclick="setWallpaper('minimal')">Выбрать</button></div>
+
+<div class="wallpaper gaming-wall"><h3>🎮 Gaming</h3>
+<button onclick="setWallpaper('gaming')">Выбрать</button></div>
+
+</div>
+`);
+}
+
+function setWallpaper(type){
+document.body.classList.remove(
+"wallpaper-neon","wallpaper-cyberpunk","wallpaper-galaxy",
+"wallpaper-minimal","wallpaper-gaming"
+);
+document.body.classList.add("wallpaper-"+type);
+localStorage.setItem("tnzqasaq_wallpaper",type);
+showToast("🖼️ Обои изменены");
+}
+
+const wallpaperStyle=document.createElement("style");
+wallpaperStyle.innerHTML=`
+body.wallpaper-neon{
+background:radial-gradient(circle at 10% 20%,#a855f755,transparent 30%),
+radial-gradient(circle at 90% 70%,#ec489955,transparent 30%),#05030a}
+body.wallpaper-cyberpunk{background:linear-gradient(135deg,#090016,#18002f,#00192b)}
+body.wallpaper-galaxy{
+background:radial-gradient(circle at 25% 25%,#7c3aed66,transparent 20%),
+radial-gradient(circle at 75% 70%,#2563eb66,transparent 20%),#02020b}
+body.wallpaper-minimal{background:#111}
+body.wallpaper-gaming{
+background:radial-gradient(circle at 50% 0%,#ff174455,transparent 35%),
+linear-gradient(135deg,#050505,#160505)}
+`;
+document.head.appendChild(wallpaperStyle);
+
+const savedWallpaper=localStorage.getItem("tnzqasaq_wallpaper");
+if(savedWallpaper)document.body.classList.add("wallpaper-"+savedWallpaper);
+
+/* ГОЛОСОВАНИЕ */
+function openVote(){
+openModal(`
+<div class="modal-icon">🗳️</div>
+<h2>Голосование</h2>
+<p>Какую функцию добавить следующей?</p>
+
+<div style="text-align:left;margin-top:20px">
+
+<label class="vote-option"><input type="radio" name="vote2" value="Облачные сохранения">☁️ Облачные сохранения</label>
+<label class="vote-option"><input type="radio" name="vote2" value="Новый дизайн">🎨 Новый дизайн</label>
+<label class="vote-option"><input type="radio" name="vote2" value="Gaming Mode">🎮 Gaming Mode</label>
+<label class="vote-option"><input type="radio" name="vote2" value="Менеджер приложений">📱 Менеджер приложений</label>
+
+</div>
+
+<button class="btn primary" onclick="vote()">🗳️ Проголосовать</button>
+<div id="voteResult" style="margin-top:15px;color:var(--main)"></div>
+`);
+}
+
+function vote(){
+const selected=document.querySelector('input[name="vote2"]:checked');
+const result=document.getElementById("voteResult");
+
+if(!selected){
+result.textContent="⚠️ Выбери вариант.";
+return;
+}
+
+localStorage.setItem("tnzqasaq_vote",selected.value);
+result.textContent="✅ Голос принят: "+selected.value;
+animationSound();
+}
+
+/* BUG TRACKER */
+function openBugs(){
+openModal(`
+<div class="modal-icon">🐛</div>
+<h2>Bug Tracker</h2>
+<p>Отслеживание ошибок проекта.</p>
+
+<div style="margin-top:25px;text-align:left">
+
+<div class="bug">
+<h3>#1042 — проблема с запуском</h3>
+<p style="color:#aaa;margin:10px 0">Не запускается виртуальная среда.</p>
+<span class="status red">🔴 Найдена</span>
+</div>
+
+<div class="bug">
+<h3>#1043 — интерфейс</h3>
+<p style="color:#aaa;margin:10px 0">Проверяется новый интерфейс.</p>
+<span class="status blue">🔵 Тестируется</span>
+</div>
+
+<div class="bug">
+<h3>#1044 — анимация</h3>
+<p style="color:#aaa;margin:10px 0">Исправление анимации.</p>
+<span class="status yellow">🟡 Исправляется</span>
+</div>
+
+<div class="bug">
+<h3>#1041 — Telegram</h3>
+<p style="color:#aaa;margin:10px 0">Проблема устранена.</p>
+<span class="status green">🟢 Исправлена</span>
+</div>
+
+</div>
+`);
+}
+
+/* АРХИВ */
+function openArchive(){
+openModal(`
+<div class="modal-icon">🗃️</div>
+<h2>Архив версий</h2>
+<p>История релизов TNZQASAQ.</p>
+
+<div class="archive" style="margin-top:25px">
+<table>
+<tr><th>Версия</th><th>Дата</th><th>Статус</th></tr>
+<tr><td>Beta 1.0</td><td>10.08.2026</td><td>⚪ Архив</td></tr>
+</table>
+</div>
+`);
+}
+
+/* ДОСТИЖЕНИЯ */
+function openAchievements(){
+openModal(`
+<div class="modal-icon">🏆</div>
+<h2>Достижения</h2>
+<p>Система достижений пользователей.</p>
+
+<div class="cards" style="margin-top:25px">
+
+<div class="card achievement">
+<div class="achievement-icon">🏅</div>
+<div><h3>Первый запуск</h3><small>Запустите Virtual впервые.</small></div>
+</div>
+
+<div class="card achievement">
+<div class="achievement-icon">🧪</div>
+<div><h3>Beta Tester</h3><small>Протестируйте Beta-версию.</small></div>
+</div>
+
+<div class="card achievement">
+<div class="achievement-icon">🔥</div>
+<div><h3>Активный участник</h3><small>900 убийств.</small></div>
+</div>
+
+<div class="card achievement">
+<div class="achievement-icon">👑</div>
+<div><h3>Veteran</h3><small>Используйте TNZQASAQ больше месяца.</small></div>
+</div>
+
+</div>
+`);
+}
+
+/* УВЕДОМЛЕНИЯ */
+function openNotifications(){
+openModal(`
+<div class="modal-icon">🔔</div>
+<h2>Центр уведомлений</h2>
+
+<div class="notifications" style="margin-top:25px">
+
+<div class="notification">
+🔥 <b>Beta 1.1 доступна</b>
+<p style="color:#aaa;margin-top:8px">Новая версия скоро появится.</p>
+</div>
+
+<div class="notification">
+🛠️ <b>Исправлена ошибка запуска</b>
+<p style="color:#aaa;margin-top:8px">Исправление проходит тестирование.</p>
+</div>
+
+</div>
+`);
+}
+
+/* НАСТРОЙКИ */
+function openSettings(){
+openModal(`
+<div class="modal-icon">⚙️</div>
+<h2>Настройки</h2>
+<p>Настрой сайт под себя.</p>
+
+<div class="theme-buttons">
+
+<button class="theme-button" onclick="setTheme('dark')">🌙 Тёмная</button>
+<button class="theme-button" onclick="setTheme('light')">☀️ Светлая</button>
+<button class="theme-button" onclick="setTheme('neon')">💜 Неоновая</button>
+<button class="theme-button" onclick="setTheme('blue')">🔵 Синяя</button>
+<button class="theme-button" onclick="setTheme('red')">🔴 Красная</button>
+<button class="theme-button" onclick="setTheme('orange')">🟠 Оранжевая</button>
+<button class="theme-button" onclick="setTheme('carbon')">⬛ Карбоновая</button>
+<button class="theme-button" onclick="setTheme('cs2')">🎯 CS2 стиль</button>
+
+</div>
+
+<div class="setting">
+<span>✨ Анимации</span>
+<div class="switch on" id="animationSwitch" onclick="toggleAnimations(this)">
+<span></span>
+</div>
+</div>
+
+<div class="setting">
+<span>🔊 Звуки анимаций</span>
+<div class="switch on" id="soundSwitch" onclick="toggleSound(this)">
+<span></span>
+</div>
+</div>
+
+<div class="setting">
+<span>🎵 Музыка</span>
+<div class="switch" id="musicSwitch" onclick="toggleMusic()">
+<span></span>
+</div>
+</div>
+`);
+}
+
+function setTheme(theme){
+document.body.classList.remove("light","blue","red","orange","carbon","cs2");
+
+if(theme==="light")document.body.classList.add("light");
+if(theme==="blue")document.body.classList.add("blue");
+if(theme==="red")document.body.classList.add("red");
+if(theme==="orange")document.body.classList.add("orange");
+if(theme==="carbon")document.body.classList.add("carbon");
+if(theme==="cs2")document.body.classList.add("cs2");
+
+localStorage.setItem("tnzqasaq_theme",theme);
+}
+
+const savedTheme=localStorage.getItem("tnzqasaq_theme");
+if(savedTheme)setTheme(savedTheme);
+
+let soundEnabled=true;
+
+function toggleSound(el){
+soundEnabled=!soundEnabled;
+el.classList.toggle("on",soundEnabled);
+}
+
+function toggleAnimations(el){
+document.body.classList.toggle("no-animation");
+el.classList.toggle("on");
+}
+
+/* МУЗЫКА */
+const music=document.getElementById("bgMusic");
+music.volume=.06;
+let musicPlaying=false;
+
+function toggleMusic(){
+
+if(!musicPlaying){
+
+music.play().then(()=>{
+musicPlaying=true;
+const sw=document.getElementById("musicSwitch");
+if(sw)sw.classList.add("on");
+showToast("🎵 Тихая музыка включена");
+}).catch(()=>{
+showToast("🎵 Нажми кнопку ещё раз");
+});
+
+}else{
+
+music.pause();
+musicPlaying=false;
+
+const sw=document.getElementById("musicSwitch");
+if(sw)sw.classList.remove("on");
+
+showToast("🔇 Музыка выключена");
+}
+}
+
+/* АККАУНТ */
+function openAccount(){
+openModal(`
+<div class="modal-icon">👤</div>
+<h2>Личный кабинет</h2>
+<p>Войдите через Telegram.</p>
+
+<div class="cards" style="margin-top:20px">
+
+<div class="card">📦<br>Мои версии</div>
+<div class="card">📥<br>Мои загрузки</div>
+<div class="card">⭐<br>Избранное</div>
+<div class="card">🏆<br>Достижения</div>
+<div class="card">🧪<br>Beta-доступ</div>
+<div class="card">📜<br>История активности</div>
+
+</div>
+
+<div class="modal-buttons">
+<button class="btn primary" onclick="telegramLogin()">✈️ Войти через Telegram</button>
+</div>
+`);
+}
+
+function telegramLogin(){
+openModal(`
+<div class="modal-icon">✈️</div>
+<h2>Вход через Telegram</h2>
+<p>
+В рабочей версии после входа:
+<br><br>
+1️⃣ Telegram отправляет запрос<br>
+2️⃣ Бот присылает сообщение<br>
+3️⃣ Пользователь подтверждает вход<br>
+4️⃣ Открывается личный кабинет
+<br><br>
+<span style="color:var(--yellow)">
+⚠️ Сейчас включён демонстрационный режим.
+</span>
+</p>
+<div class="modal-buttons">
+<button class="btn primary" onclick="openBot()">✈️ Открыть бота</button>
+</div>
+`);
+}
+
+/* EASTER EGG */
+function easterEgg(){
+openModal(`
+<div class="modal-icon">🥚</div>
+<h2>Easter Egg!</h2>
+<p>
+🎉 Ты нашёл секретную функцию TNZQASAQ!
+<br><br>
+Спасибо за поддержку проекта ❤️
+</p>
+`);
+}
+
+/* TOAST */
+function showToast(text){
+const old=document.getElementById("toast");
+if(old)old.remove();
+
+const toast=document.createElement("div");
+toast.id="toast";
+toast.textContent=text;
+
+toast.style.cssText=`
+position:fixed;left:50%;bottom:30px;transform:translateX(-50%);
+z-index:9999;padding:14px 22px;border-radius:15px;
+background:#111c;backdrop-filter:blur(15px);
+border:1px solid #a855f766;color:white;
+box-shadow:0 0 30px #a855f733;
+`;
+
+document.body.appendChild(toast);
+setTimeout(()=>toast.remove(),2200);
+
+if(soundEnabled)animationSound();
+}
+
+/* PARALLAX ТЕЛЕФОНА */
+document.addEventListener("mousemove",e=>{
+const phone=document.getElementById("phone");
+if(!phone)return;
+
+const x=(e.clientX/window.innerWidth-.5)*10;
+const y=(e.clientY/window.innerHeight-.5)*8;
+
+phone.style.transform=`rotateY(${-x}deg) rotateX(${y}deg)`;
+});
+
+/* ESC */
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape")closeModal();
+});
+
+</script>
+</body>
+</html>
